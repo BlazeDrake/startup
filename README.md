@@ -6,7 +6,11 @@
 Have you ever wanted to keep track of the various profile pictures you use across different services? Or do you want to keep a consistent profile picture for each username you use, but forgot one of the services you used that username for when changing it? Well, profile tracker is for you! In it, you can create a list of usernames which you use. Then, under each username, you can add a profile picture for it and all services which you use that persona for. You can even generate a random profile picture from a few different sets! This makes it easy to keep yourself consistent across different platorms, or what username to use for a new platform which you want to be recognizable to people from a specific other platform you're already on.
 
 ### Design
-![image](https://github.com/user-attachments/assets/5b19dd27-6edd-4432-8c3e-3eea4b7e250b)
+![Mock UI](https://github.com/user-attachments/assets/5b19dd27-6edd-4432-8c3e-3eea4b7e250b)
+
+Here is a diagram shows the client server connection for logging in. It also shows both the client server and peer to peer connections when updating your info.
+![Diagram of user connection](https://github.com/user-attachments/assets/1632b258-c02c-4815-9bd7-0d685c7cf2ae)
+
 
 
 ### Key Features
