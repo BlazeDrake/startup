@@ -25,7 +25,7 @@ I am going to use the required technologies in the following ways.
 * Service - Backend service with endpoints for:
 	* Login
 	* Generating profile pictures. The following apis will be used for this:
-		* [DiceBear](https://www.dicebear.com/how-to-use/http-api)
-		* [Met Museum Of Art](https://metmuseum.github.io/)
+		* [DiceBear](https://www.dicebear.com/how-to-use/http-api) (8 bit profile pictures)
+		* [Met Museum Of Art](https://metmuseum.github.io/) (api to grab pieces of art from the MET)
 * DB/Login - Store users, and created profiles in database. Register and login users. Credentials securely stored in database. Authentication required to view and manage profiles
 * WebSocket - When a new profile is created, it is broadcast to all online users
