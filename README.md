@@ -10,11 +10,21 @@ Put image here later
 
 ### Key Features
 * Secure login over HTTPS
-* Ability to create a username
-* Ability to associate a list of service names with the username (ex. Xbox, Discord, etc.)
+* Ability to create a tracked profile, with a set username
+* Ability to associate a list of service names with the profile (ex. Xbox, Discord, etc.)
 * Ability to upload or generate a profile picture for the username
 * Information is persistently stored
 
-API brainstorm:
-	DiceBear (https://www.dicebear.com/how-to-use/http-api)
- 	Met Museum Of Art(https://metmuseum.github.io/)
+### Technologies
+I am going to use the required technologies in the following ways.
+
+* HTML - Uses correct HTML structure for application. Two HTML pages. One for login and one for profile management. Hyperlinks between the pages.
+* CSS - Application styling that looks good on different screen sizes, uses good whitespace, color choice and contrast.
+* React - Provides login, profile list, the ability to modify the profile picture, the ability to add services to it, the ability to change a profile's username, and use of React for routing and components.
+* Service - Backend service with endpoints for:
+	* Login
+	* Generating profile pictures. The following apis will be used for this:
+		* [DiceBear](https://www.dicebear.com/how-to-use/http-api)
+		* [Met Museum Of Art](https://metmuseum.github.io/)
+* DB/Login - Store users, and created profiles in database. Register and login users. Credentials securely stored in database. Authentication required to view and manage profiles
+* WebSocket - When a new profile is created, it is broadcast to all online users
