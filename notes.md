@@ -1,5 +1,7 @@
 # Server info:
 IP: 34.233.139.189
+URL: http://cs260-profile.click/
+
 ## Commands to access
 cd ~
 
