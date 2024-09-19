@@ -9,4 +9,10 @@ cd ~
 ssh -i [file path to keys, format of ~/keys/production.pem] ubuntu@34.233.139.189
 
 
-MERGE CONFLICT
+## Deploy commands
+
+cd ~/source/repos/CS_BYU/simon-html
+
+
+Simon:
+./deployFiles.sh -k <yourpemkey> -h cs260-profile.click -s simon
