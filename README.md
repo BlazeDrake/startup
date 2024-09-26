@@ -33,3 +33,14 @@ I am going to use the required technologies in the following ways.
 		* [Met Museum Of Art](https://metmuseum.github.io/) (api to grab pieces of art from the MET)
 * DB/Login - Store users, and created profiles in database. Register and login users. Credentials securely stored in database. Authentication required to view and manage profiles
 * WebSocket - When a new profile is created, it is broadcast to all online users
+
+## HTML Deliverable
+
+I built up a mock-up of the website using html. 
+
+* HTML pages - Two HTML page that represent the ability to login and manage profiles.
+* Links - The login page links to the profile page when you hit "login" or "create". You can then press "log out" to go out.
+* Text - I put placeholder text for the profiles, as well as in the input sections.
+* Images - I used SVG images as placeholders for the profile pictures you can select.
+* DB/Login - Input box and submit button for login. The profile details represent information that is stored and pulled from the database.
+* WebSocket - The message in the corner saying "ExampleUser updated their profile!" represents websocket notifications.
