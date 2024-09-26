@@ -18,6 +18,8 @@ Simon:
 ./deployFiles.sh -k <yourpemkey> -h cs260-profile.click -s simon
 
 Startup:
+ cd C:/Users/blaze/source/repos/CS_BYU/startup
+
  ./deployFiles.sh -k <yourpemkey> -h cs260-profile.click -s startup
 
 
