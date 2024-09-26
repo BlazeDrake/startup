@@ -17,6 +17,9 @@ cd ~/source/repos/CS_BYU/simon-html
 Simon:
 ./deployFiles.sh -k <yourpemkey> -h cs260-profile.click -s simon
 
+Startup:
+ ./deployFiles.sh -k <yourpemkey> -h cs260-profile.click -s startup
+
 
 ## startup notes
 
