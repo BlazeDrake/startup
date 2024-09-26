@@ -18,5 +18,11 @@ Simon:
 ./deployFiles.sh -k <yourpemkey> -h cs260-profile.click -s simon
 
 
+## startup notes
+
 Random html tags:
-<center>: deprecated, but used for formatting in the center when you have no css like me!
+`<center>`: deprecated, but used for formatting in the center when you have no css like me!
+
+html startup notes:
+* Helpful to clear cache when editing icons
+* 
