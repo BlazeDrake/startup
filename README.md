@@ -43,4 +43,4 @@ I built up a mock-up of the website using html.
 * Text - I put placeholder text for the profiles, as well as in the input sections.
 * Images - I used SVG images as placeholders for the profile pictures you can select.
 * DB/Login - Input box and submit button for login. The profile details represent information that is stored and pulled from the database.
-* WebSocket - The message in the corner saying "ExampleUser updated their profile!" represents websocket notifications.
+* WebSocket - The message in the top left corner saying "ExampleUser updated their profile!" represents websocket notifications.
