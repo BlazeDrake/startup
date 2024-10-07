@@ -9,15 +9,53 @@ header {
 }
 
 main {
-  flex: 1 calc(100vh - 110px);
+  flex: 1 calc(80vh - 110px);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
 }
+.about-info {
+  margin-bottom: 1em;
+  border-radius: 5px;
+}
+
+.about-info h2{
+  text-align: center;
+}
+.login-form{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  justify-content: space-around;
+  padding: 0 10%;
+  gap: 10px;
+}
+
+.login-item{
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  justify-content: space-around;
+}
+.login-item span{
+  flex: 0 10px;
+  transform: translate(5px);
+}
+.login-item input{
+  flex: 1;
+}
+
+nav{
+  text-align: center;
+}
 
 footer {
   flex: 0 30px;
+  padding: 3px;
 }
 
 menu {
@@ -51,5 +89,12 @@ footer a {
   }
   main {
     flex: 1 100vh;
+  }
+}
+
+@media (max-width: 1000px){
+  .login-form{
+    padding: 0 2.5%;
+    gap: 10px;
   }
 }

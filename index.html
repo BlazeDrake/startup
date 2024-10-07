@@ -22,33 +22,35 @@
     <!-- Use header, main, and footer elements to give semantic structure -->
     <header class="container-fluid">
       <h1>Profile Tracker</h1>
-      <!-- Since we don't have the ability to style we use old style HTML to give some visual formatting -->
-      <hr />
 
     </header>
 
-    <nav class="container-fluid">
-      <h1><center>Login to get started</center></h1>
+    <nav class="container-fluid bg-secondary text-dark">
+      <h1>Login to get started</h1>
       <form method="get" action="profile.html">
-        <center>
-            <div>
-             <span>@</span>
-               <input type="text" placeholder="your@email.com" />
-               <!-- KEEP IT ON THE SAME LINE -->
-               <span>🔒</span>
-               <input type="password" placeholder="password" />
+            <div class="input-group mb-3 login-form">
+              <div class="login-item">
+                <span class="input-group-text">@</span>
+                <input class="form-control" type="text" placeholder="your@email.com" />
+              <!-- KEEP IT ON THE SAME LINE -->
+              </div>
+              <div class="login-item">
+                <span class="input-group-text">🔒</span>
+                <input class="form-control" type="password" placeholder="password" />
+              </div>
             </div>
-            <button type="submit">Login</button>
-            <button type="submit">Create</button>
-        </center>
+            <button type="submit" class="btn btn-primary">Login</button>
+            <button type="submit" class="btn btn-secondary">Create</button>
       </form>
     </nav>
-    <main class="container-fluid">
-        <div><h2>About</h2></div>
-        <div>Have you ever had a hard time keeping track of all of your different profiles, with details such as username and which profile picture you're using? </div>
-        <div>Well, Profile Tracker is the thing for you! You can create different username groups with it, and then track which services you use that name for!</div>
-        <div>You can also store your profile picture there, to make it easy to keep track of what you're currently using and if you want to change it. You can even generate one to download!</div>
-        <div>Create a profile or log in to get started!</div>
+    <main class="container-fluid bg-secondary text-dark">
+        <div class="about-info">
+          <h2>About</h2>
+          Have you ever had a hard time keeping track of all of your different profiles, with details such as username and which profile picture you're using?
+          Well, Profile Tracker is the thing for you! You can create different username groups with it, and then track which services you use that name for!
+          You can also store your profile picture there, to make it easy to keep track of what you're currently using and if you want to change it. You can even generate one to download!
+          Create a profile or log in to get started!
+        </div>
     </main>
 
     <footer class="bg-dark text-white-90 container-fluid">
