@@ -76,3 +76,21 @@ DOM:
 }
 
 displayElement(document);```
+
+
+Event listeners:
+Let's you make things interactive!
+
+Ex:
+```js
+const submitDataEl = document.querySelector('#submitData');
+submitDataEl.addEventListener('click', function (event) {
+  console.log(event.type);
+});
+```
+Listener types: 
+* Clipboard	Cut, copied, pasted
+* Focus	An element gets focus
+* Keyboard	Keys are pressed
+* Mouse	Click events
+* Text selection	When text is selected
