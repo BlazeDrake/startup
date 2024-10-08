@@ -67,15 +67,18 @@ DOM:
 * textContent contains the text of the element
 * use `appendChild` to add to the dom
 
-* Example use: ```js
-* function displayElement(el) {
+* Example use:
+
+```js
+function displayElement(el) {
   console.log(el.tagName);
   for (const child of el.children) {
     displayElement(child);
   }
 }
 
-displayElement(document);```
+displayElement(document);
+```
 
 
 Event listeners:
