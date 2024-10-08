@@ -41,10 +41,10 @@ Tag to use bootstrap:  `<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3
 
 
 
-##Class notes
+## Class notes
 
 
-###JS
+### JS
 
 Arrays:
 push	Add an item to the end of the array	a.push(4)
