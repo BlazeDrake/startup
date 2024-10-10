@@ -23,18 +23,23 @@ main {
   flex: 1;
 }
 
-#profile-header{
-  text-align: center;
+.profile-header{
   margin:0px;
   padding:5px;
+  transform: translate(7em,0);
+}
+
+.profile-footer{
+  margin:0px;
+  padding:5px;
+  transform: translate(7em,0);
 }
 
 .profile-parent{
   flex: 1 calc(50vh - 110px);
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
+  align-items: start;
   margin:0px;
   padding:0px;
 }
