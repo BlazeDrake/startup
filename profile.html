@@ -29,7 +29,7 @@
     <main class="bg-secondary text-dark">
       <div id="loginInfo">
         <div class="login container-fluid">
-          <h1>&lt;my@email.com&gt; logged in</h1>
+          <span id="logged-in">&lt;my@email.com&gt; logged in</span>
           <form method="get" action="index.html">
             
               <button type="submit" class="btn btn-primary">Logout</button>
@@ -44,7 +44,7 @@
         <section class="profile-header">
           <div><h2>Profiles</h2></div>   
         </section>
-        <section class="profile-parent">
+        <section class="profile-parent text-light">
           <div class="profile-box">
             <section class="profile-head">
                         Profile 1                                    
@@ -77,19 +77,19 @@
                     Download current image
                   </button>
               </span>
-              <span class="username-info">
-                <form method="get" id="profile1">
-                  <p>
+                <form method="get" id="profile1" class="username-info">
+                  <div>
                     <input placeholder="Username">
-                    <hr/>
-                  </p>
-                  <p>
-                    <input placeholder="Service 1">
-                  </p>
-                  <p>
-                    <input placeholder="Service 2">
-                  </p>
-                  <p>
+                  </div>
+                  <div class="row">
+                    <div class="col service-name">
+                      <input placeholder="Service 1">
+                    </div>
+                    <div class="col service-name">
+                      <input placeholder="Service 2">
+                    </div>
+                  </div>
+                  <p class="manage-service">
                     <button type="button" class="btn btn-success">
                       +
                     </button>
@@ -98,10 +98,68 @@
                     </button>
                   </p>
                 </form>
-              </span>
             </section>
   
-          </div>               
+          </div>         
+          <div class="profile-box">
+            <section class="profile-head">
+                        Profile 2                                    
+                        <button class="btn btn-danger float-right" >
+                          Delete
+                        </button>
+            </section>
+            <section class="profile-section">
+              <span class="pfp-info">
+                <p>
+                  <svg aria-hidden="true" viewBox="0 0 100 100" height="100" width="100">
+                    <!-- SVG
+                      M move <to x,y>
+                      Q quadratic curve <control point x,y> <to x,y>
+                  -->
+                    <rect x="0" y="0" width="100" height="100" stroke="black" fill="white" stroke-width="3"/>
+                    <circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" />
+                  </svg>
+                </p>
+                  <button class="btn btn-secondary ">
+                    Generate from art
+                  </button>
+                  <button class="btn btn-secondary">
+                    Generate 8-bit image
+                  </button>
+                  <button class="btn btn-success">
+                    Upload
+                  </button>
+                  <button class="btn btn-primary">
+                    Download current image
+                  </button>
+              </span>
+                <form method="get" id="profile1" class="username-info">
+                  <div>
+                    <input placeholder="Username">
+                  </div>
+                  <div class="row">
+                    <div class="col service-name">
+                      <input placeholder="Service 1">
+                    </div>
+                    <div class="col service-name">
+                      <input placeholder="Service 2">
+                    </div>
+                    <div class="col service-name">
+                      <input placeholder="Service 3">
+                    </div>
+                  </div>
+                  <p class="manage-service">
+                    <button type="button" class="btn btn-success">
+                      +
+                    </button>
+                    <button type="button" class="btn btn-danger">
+                      -
+                    </button>
+                  </p>
+                </form>
+            </section>
+  
+          </div>        
         </section>
         <section>
           
