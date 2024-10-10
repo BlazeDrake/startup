@@ -27,21 +27,20 @@
     </header>
 
     <main class="container-fluid bg-secondary text-dark">
-      <section>
-        <h1>&lt;my@email.com&gt; logged in</h1>
-        <form method="get" action="index.html">
-          
-            <button type="submit" class="btn btn-primary">Logout</button>
-          
-        </form>
-  
-        <table border="1" width="500">
-          <td>ExampleUser updated their profile!</td>
-        </table>
+      <section class="d-inline-flex">
+        <div class="user-update">
+            ExampleUser updated their profile!
+        </div>
+        <div class="login container-fluid">
+          <h1>&lt;my@email.com&gt; logged in</h1>
+          <form method="get" action="index.html">
+            
+              <button type="submit" class="btn btn-primary">Logout</button>
+            
+          </form>        
+          <div><h2>Profiles</h2></div>   
+        </div>
 
-        
-          <div><h2>Profiles</h2></div>
-        
       </section>
 
       <section class="container-fluid profile-parent">

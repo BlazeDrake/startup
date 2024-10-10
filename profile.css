@@ -2,9 +2,22 @@ main {
     flex: 1 calc(100vh - 110px);
     display: flex;
     flex-direction: column;
-    align-items: center;
+
     justify-content: space-around;
   }
+
+.user-update{
+  float: left;
+  flex: 1 350px;
+  padding: 0.5em;
+}
+.login{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  flex: 3;
+}
 
 .profile-parent{
   flex: 1 calc(100vh - 110px);
