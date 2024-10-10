@@ -44,3 +44,14 @@ I built up a mock-up of the website using html.
 * Images - I used SVG images as placeholders for the profile pictures you can select.
 * DB/Login - Input box and submit button for login. The profile details represent information that is stored and pulled from the database.
 * WebSocket - The message in the top left corner saying "ExampleUser updated their profile!" represents websocket notifications.
+
+## CSS Deliverable
+
+For this deliverable I properly styled the application into its final appearance.
+
+* Header, footer, and main content body
+* Navigation elements - No navigation elements at the top necessary, as there are only 2 pages. I did stylize the login and logout buttons though
+* Responsive to window resizing - My app looks great on all window sizes and devices
+* Application elements - Used good contrast and whitespace
+* Application text content - Consistent fonts
+* Application images - They are static still, but float is used to ensure they are in the right segment of the box.
