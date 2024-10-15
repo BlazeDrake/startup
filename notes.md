@@ -651,7 +651,9 @@ Tag to use bootstrap:  `<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3
 			§ }
 That will add some content before every element with class author 
 
-
+### Regex
+* Includes / around it
+* i at the end means it ignores case
 
 ### JS
 
