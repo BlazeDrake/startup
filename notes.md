@@ -706,6 +706,7 @@ DOM:
 * `document.querySelectorAll` uses a css selector as a filter
 * textContent contains the text of the element
 * use `appendChild` to add to the dom
+* Every attribute of an element is a field in an object, which is returned when you get the element
 * getElementsByClassName(<class>):
 	Returns all elements with class class![image](https://github.com/user-attachments/assets/47a909a9-2ad7-4c0e-b07c-a68f1c3723d7)
 
