@@ -706,6 +706,26 @@ DOM:
 * `document.querySelectorAll` uses a css selector as a filter
 * textContent contains the text of the element
 * use `appendChild` to add to the dom
+* getElementById(<id>):
+	Returns first element with id id![image](https://github.com/user-attachments/assets/a300e3d9-d6c0-4783-be78-371cb8f9d677)
+
+		○ Manipulating elements
+			§ innerText:
+				□ Is the text inside of the document, including html within
+				□ You can directly write any string to it
+				□ Useful for "prefab" type things where you insert premade html
+				□ Note that injection like this can be used for viruses, so be aware of it
+				□ This can also be used for creating the app
+				□ Modern webapps are normally a single page, and use code injection to travel
+				□ This means you don't need to duplicate code as much
+				
+			§ tagName
+				□ Returns what type of tag the element is
+			§ Children:
+				□ All elements that are direct children of this tag (branches of the tree)
+textContent:![image](https://github.com/user-attachments/assets/b46e8c79-3a61-49c5-ba28-d0893c6b1a14)
+
+
 
 * Example use:
 
