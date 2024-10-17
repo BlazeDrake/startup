@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/2bed256c-16d8-44c0-9e9f-4a5dab3d1247)![image](https://github.com/user-attachments/assets/c3d51558-c693-4786-8777-2d31bba76a45)![image](https://github.com/user-attachments/assets/1b6d674b-1ee2-4d21-a63e-03059ed1da88)![image](https://github.com/user-attachments/assets/685b7202-0b84-4b39-924c-5f239ba64e54)# Server info:
+# Server info:
 IP: 34.233.139.189
 
 URL: http://cs260-profile.click/
@@ -706,6 +706,9 @@ DOM:
 * `document.querySelectorAll` uses a css selector as a filter
 * textContent contains the text of the element
 * use `appendChild` to add to the dom
+* getElementsByClassName(<class>):
+	Returns all elements with class class![image](https://github.com/user-attachments/assets/47a909a9-2ad7-4c0e-b07c-a68f1c3723d7)
+
 * getElementById(<id>):
 	Returns first element with id id![image](https://github.com/user-attachments/assets/a300e3d9-d6c0-4783-be78-371cb8f9d677)
 
