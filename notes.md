@@ -40,6 +40,12 @@ Demo codepen: https://codepen.io/leesjensen/pen/JjZavjW
 Tag to use bootstrap:  `<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">`
 
 
+React notes:
+* Will need to make sure it's installed
+* Also install vite
+* Once boht are installed with npm, use npm run dev to test it locally
+
+
 
 ## Class notes
 
