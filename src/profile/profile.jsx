@@ -1,4 +1,5 @@
 import React from 'react';
+import {useState} from 'react';
 import './profile.css';
 
 export function ProfileBox({num,pfpLink,username,services, onDelete}){
@@ -13,10 +14,7 @@ export function ProfileBox({num,pfpLink,username,services, onDelete}){
     <section className="profile-section">
       <span className="pfp-info">
         <p>
-          <svg aria-hidden="true" viewBox="0 0 100 100" height="100" width="100">
-            <rect x="0" y="0" width="100" height="100" stroke="black" fill="white" stroke-width="3"/>
-            <circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" />
-          </svg>
+          <img src={pfpLink} width="75em" />
         </p>
           <button className="btn btn-secondary ">
             Generate from art
@@ -60,9 +58,19 @@ export function ProfileBox({num,pfpLink,username,services, onDelete}){
 
 export function Profile() {
 
+  const baseProfile={num: 0, services:[], pfpLink: "https://freepngimg.com/thumb/shape/29783-1-circle-hd.png"};
+  const [profiles, setProfile] = useState([baseProfile]);
+
   function onDelete(i){
     console.log("Deleted "+i);
   }
+
+  function addProfile(){
+    const newProfiles = profiles.slice();
+    newProfiles.Push(baseProfile);
+    setProfile(newProfiles);
+  }
+
   return (
     <main className="bg-secondary text-dark">
     <div id="loginInfo">
@@ -80,8 +88,7 @@ export function Profile() {
     </div>
 
     <section className="profile-parent text-light">
-        <ProfileBox num="1" username="Profile 1" onDelete={()=>{onDelete(0);}}/>     
-        <ProfileBox num="2" username="Profile 2" onDelete={()=>{onDelete(1);}}/>
+        <ProfileBox num="1" username="Profile 1" pfpLink="https://freepngimg.com/thumb/shape/29783-1-circle-hd.png" onDelete={()=>{onDelete(0);}}/>     
       </section>
 
 
