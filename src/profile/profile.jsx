@@ -58,18 +58,33 @@ export function ProfileBox({num,pfpLink,username,services, onDelete}){
 
 export function Profile() {
 
-  const baseProfile={num: 0, services:[], pfpLink: "https://freepngimg.com/thumb/shape/29783-1-circle-hd.png"};
+  const baseProfile={num: 1, services:[], pfpLink: "https://freepngimg.com/thumb/shape/29783-1-circle-hd.png"};
   const [profiles, setProfile] = useState([baseProfile]);
+  const [nextProfileNum,setProfileNum] = useState(2);//Start at 2
 
-  function onDelete(i){
-    console.log("Deleted "+i);
+  function onDelete(num){
+    const newProfiles = profiles.slice();
+    for(let i=0;i<newProfiles.length;i++){
+      if(newProfiles[i].num==num){
+        newProfiles.splice(i,1);
+        break;
+      }
+    }
+    setProfile(newProfiles);
   }
 
   function addProfile(){
     const newProfiles = profiles.slice();
-    newProfiles.Push(baseProfile);
+    let newProfile={...baseProfile};
+    newProfile.num=nextProfileNum;
+    setProfileNum(nextProfileNum+1);
+    newProfiles.push(newProfile);
     setProfile(newProfiles);
   }
+
+  const profileBoxes=profiles.map((profile)=>{
+    return <ProfileBox num={profile.num} username={"Profile "+profile.num} pfpLink={profile.pfpLink} onDelete={()=>{onDelete(profile.num);}} key={profile.num}/>
+  });
 
   return (
     <main className="bg-secondary text-dark">
@@ -88,7 +103,7 @@ export function Profile() {
     </div>
 
     <section className="profile-parent text-light">
-        <ProfileBox num="1" username="Profile 1" pfpLink="https://freepngimg.com/thumb/shape/29783-1-circle-hd.png" onDelete={()=>{onDelete(0);}}/>     
+             {profileBoxes}
       </section>
 
 
@@ -99,7 +114,7 @@ export function Profile() {
 
       <section>
         
-          <button type="button" className="btn btn-success profile-footer">
+          <button type="button" className="btn btn-success profile-footer" onClick={addProfile}>
             Add New Profile
           </button>
         
