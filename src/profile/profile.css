@@ -11,6 +11,7 @@ main {
 }
 #profileInfo{
   flex: 3;
+  float: center;
 }
 
 #logged-in{
@@ -31,14 +32,12 @@ main {
 .profile-header{
   margin:0px;
   padding:5px;
-  transform: translate(28em,0);
 }
 
 /*(14nem), where n=number of profiles*/
 .profile-footer{
   margin:0px;
   padding:5px;
-  transform: translate(28em,0);
 }
 
 .profile-parent{
