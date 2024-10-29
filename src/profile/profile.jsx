@@ -1,12 +1,12 @@
 import React from 'react';
 import './profile.css';
 
-export function ProfileBox(){
+export function ProfileBox({num,pfpLink,username,services, onDelete}){
   return(
     <div className="profile-box">
     <section className="profile-head">
-                Profile 1                                    
-                <button className="btn btn-danger float-right" >
+                Profile {num}                                    
+                <button className="btn btn-danger float-right" onClick={onDelete} >
                   Delete
                 </button>
     </section>
@@ -31,9 +31,9 @@ export function ProfileBox(){
             Download current image
           </button>
       </span>
-        <form method="get" id="profile1" className="username-info">
+        <form method="get"className="username-info">
           <div>
-            <input placeholder="Username" />
+            <input placeholder={username} />
           </div>
           <div className="row">
             <div className="col service-name">
@@ -59,6 +59,10 @@ export function ProfileBox(){
 }
 
 export function Profile() {
+
+  function onDelete(i){
+    console.log("Deleted "+i);
+  }
   return (
     <main className="bg-secondary text-dark">
     <div id="loginInfo">
@@ -76,8 +80,8 @@ export function Profile() {
     </div>
 
     <section className="profile-parent text-light">
-        <ProfileBox />     
-        <ProfileBox />
+        <ProfileBox num="1" username="Profile 1" onDelete={()=>{onDelete(0);}}/>     
+        <ProfileBox num="2" username="Profile 2" onDelete={()=>{onDelete(1);}}/>
       </section>
 
 
