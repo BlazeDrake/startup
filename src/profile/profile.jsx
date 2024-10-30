@@ -2,7 +2,41 @@ import React from 'react';
 import {useState} from 'react';
 import './profile.css';
 
-export function ProfileBox({num,pfpLink,username,services, onDelete}){
+export function ProfileBox({num,pfpLink,username,services, onDelete, onServicesUpdated}){
+
+  let i=-1;//Negative one so it starts at 0
+  let serviceNames=generateInputFields();
+
+  function refresh(){
+    serviceNames=generateInputFields();
+    onServicesUpdated();
+  }
+
+  function generateInputFields(){
+    return services.map((service, storedIndex)=>{
+      return (
+        <div className="col service-name">
+          <input placeholder={service} onChange={(e) => onChangeService(storedIndex,e.target.value)} key={storedIndex}/>
+        </div>
+      )
+    });
+  }
+
+  function onChangeService(i,newVal){
+    services[i]=newVal;
+    refresh();
+  }
+
+  function onDeleteService(){
+    services.pop();
+    refresh();
+  }
+
+  function onAddService(){
+    services.push("Service "+(services.length+1));
+    refresh();
+  }
+  
   return(
     <div className="profile-box">
     <section className="profile-head">
@@ -34,18 +68,13 @@ export function ProfileBox({num,pfpLink,username,services, onDelete}){
             <input placeholder={username} />
           </div>
           <div className="row">
-            <div className="col service-name">
-              <input placeholder="Service 1" />
-            </div>
-            <div className="col service-name">
-              <input placeholder="Service 2" />
-            </div>
+            {serviceNames}
           </div>
           <p className="manage-service">
-            <button type="button" className="btn btn-success">
+            <button type="button" className="btn btn-success" onClick={onAddService}>
               +
             </button>
-            <button type="button" className="btn btn-danger">
+            <button type="button" className="btn btn-danger" onClick={onDeleteService}>
               -
             </button>
           </p>
@@ -58,7 +87,11 @@ export function ProfileBox({num,pfpLink,username,services, onDelete}){
 
 export function Profile() {
 
-  const baseProfile={num: 1, services:[], pfpLink: "https://freepngimg.com/thumb/shape/29783-1-circle-hd.png"};
+  const baseProfile={
+    num: 1,
+    services:["Service 1","Service 2"], 
+    pfpLink: "https://freepngimg.com/thumb/shape/29783-1-circle-hd.png"
+  };
   const [profiles, setProfile] = useState([baseProfile]);
   const [nextProfileNum,setProfileNum] = useState(2);//Start at 2
 
@@ -73,6 +106,11 @@ export function Profile() {
     setProfile(newProfiles);
   }
 
+  function refreshProfiles(){
+    const newProfiles = profiles.slice();
+    setProfile(newProfiles);
+  }
+
   function addProfile(){
     const newProfiles = profiles.slice();
     let newProfile={...baseProfile};
@@ -83,7 +121,7 @@ export function Profile() {
   }
 
   const profileBoxes=profiles.map((profile)=>{
-    return <ProfileBox num={profile.num} username={"Profile "+profile.num} pfpLink={profile.pfpLink} onDelete={()=>{onDelete(profile.num);}} key={profile.num}/>
+    return <ProfileBox num={profile.num} services={profile.services} username={"Profile "+profile.num} pfpLink={profile.pfpLink} onServicesUpdated={refreshProfiles} onDelete={()=>{onDelete(profile.num);}} key={profile.num}/>
   });
 
   return (
