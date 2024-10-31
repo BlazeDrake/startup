@@ -3,7 +3,7 @@ import React from 'react';
 import { UpdateEvent, UpdateNotifier } from './updateNotifier';
 import './loginInfo.css';
 
-export function LoginInfo(props) {
+export default function LoginInfo(props) {
   const userName = props.userName;
 
   const [events, setEvent] = React.useState([]);
@@ -48,8 +48,11 @@ export function LoginInfo(props) {
 
   return (
     <div className='players'>
-      Player
       <span className='player-name'>{userName}</span>
+      currently logged in
+      <div>
+      <button onClick={props.logOut} className="btn btn-primary">Logout</button>
+      </div>
       <div id='player-messages'>{createMessageArray()}</div>
     </div>
   );

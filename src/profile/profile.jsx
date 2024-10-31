@@ -139,7 +139,7 @@ export function Profile({userName}) {
 
   return (
     <main className="bg-secondary text-dark">
-    <LoginInfo userName={userName} />
+    <LoginInfo userName={userName} logOut={()=>{console.log("LOG OUT")}}/>
 
     <div id="profileInfo">
       <section className="profile-header">
