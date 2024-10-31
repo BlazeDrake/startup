@@ -1,10 +1,12 @@
 import React from 'react';
 import {useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 import './profile.css';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import LoginInfo from "./loginInfo.jsx"
+
 
 export function ProfileBox({num,pfpLink,username,services, onDelete, onServicesUpdated, usedStyle}){
 
@@ -43,6 +45,11 @@ export function ProfileBox({num,pfpLink,username,services, onDelete, onServicesU
     refresh();
   }
   
+  function onChangeUsername(newVal){
+    username=newVal;
+    refresh();
+  }
+
   return(
     <div className="profile-box" style={usedStyle}>
     <section className="profile-head">
@@ -71,7 +78,7 @@ export function ProfileBox({num,pfpLink,username,services, onDelete, onServicesU
       </span>
         <form method="get"className="username-info">
           <div>
-            <input placeholder={username} />
+            <input placeholder={username} onChange={(e) => onChangeUsername(e.target.value)}/>
           </div>
           <div className="row service-parent">
             <Container>
@@ -96,15 +103,18 @@ export function ProfileBox({num,pfpLink,username,services, onDelete, onServicesU
   );
 }
 
-export function Profile({userName}) {
+export function Profile({userName,onLogOut}) {
 
   const baseProfile={
     num: 1,
+    userName:"Profile 1",
     services:["Service 1","Service 2"], 
     pfpLink: "https://freepngimg.com/thumb/shape/29783-1-circle-hd.png"
   };
   const [profiles, setProfile] = useState([{...baseProfile, services:["Service 1","Service 2"]}]);
   const [nextProfileNum,setProfileNum] = useState(2);//Start at 2
+
+  const navigate = useNavigate();
 
   function onDelete(num){
     const newProfiles = profiles.slice();
@@ -120,6 +130,9 @@ export function Profile({userName}) {
   function refreshProfiles(){
     const newProfiles = profiles.slice();
     setProfile(newProfiles);
+    for(let i=0;i<profiles.length;i++){
+      console.log(profiles[i].u)
+    }
   }
 
   function addProfile(){
@@ -139,7 +152,10 @@ export function Profile({userName}) {
 
   return (
     <main className="bg-secondary text-dark">
-    <LoginInfo userName={userName} logOut={()=>{console.log("LOG OUT")}}/>
+    <LoginInfo userName={userName} logOut={()=>{
+      onLogOut();
+      navigate("/");
+    }}/>
 
     <div id="profileInfo">
       <section className="profile-header">
