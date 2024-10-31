@@ -8,8 +8,9 @@ import Col from 'react-bootstrap/Col';
 import LoginInfo from "./loginInfo.jsx"
 
 
-export function ProfileBox({num,pfpLink,username,services, onDelete, onServicesUpdated, usedStyle}){
+export function ProfileBox({profile, onDelete, onServicesUpdated, usedStyle}){
 
+  const {num}=profile;
   let i=-1;//Negative one so it starts at 0
   let serviceNames=generateInputFields();
 
@@ -19,11 +20,11 @@ export function ProfileBox({num,pfpLink,username,services, onDelete, onServicesU
   }
 
   function generateInputFields(){
-    return services.map((service, storedIndex)=>{
+    return profile.services.map((service, storedIndex)=>{
       return (
         <Col>
         <div className="col service-name">
-          <input placeholder={service} onChange={(e) => onChangeService(storedIndex,e.target.value)} key={storedIndex}/>
+          <input value={service} placeholder="Blank Service" onChange={(e) => onChangeService(storedIndex,e.target.value)} key={storedIndex}/>
         </div>
         </Col>
       )
@@ -31,22 +32,22 @@ export function ProfileBox({num,pfpLink,username,services, onDelete, onServicesU
   }
 
   function onChangeService(i,newVal){
-    services[i]=newVal;
+    profile.services[i]=newVal;
     refresh();
   }
 
   function onDeleteService(){
-    services.pop();
+    profile.services.pop();
     refresh();
   }
 
   function onAddService(){
-    services.push("Service "+(services.length+1));
+    profile.services.push("Service "+(profile.services.length+1));
     refresh();
   }
   
   function onChangeUsername(newVal){
-    username=newVal;
+    profile.username=newVal;
     refresh();
   }
 
@@ -61,7 +62,7 @@ export function ProfileBox({num,pfpLink,username,services, onDelete, onServicesU
     <section className="profile-section">
       <span className="pfp-info">
         <p>
-          <img src={pfpLink} width="75em" />
+          <img src={profile.pfpLink} width="75em" />
         </p>
           <button className="btn btn-secondary ">
             Generate from art
@@ -78,7 +79,7 @@ export function ProfileBox({num,pfpLink,username,services, onDelete, onServicesU
       </span>
         <form method="get"className="username-info">
           <div>
-            <input placeholder={username} onChange={(e) => onChangeUsername(e.target.value)}/>
+            <input value={profile.username} placeholder="Blank Profile"onChange={(e) => onChangeUsername(e.target.value)}/>
           </div>
           <div className="row service-parent">
             <Container>
@@ -107,7 +108,7 @@ export function Profile({userName,onLogOut}) {
 
   const baseProfile={
     num: 1,
-    userName:"Profile 1",
+    username:"Profile 1",
     services:["Service 1","Service 2"], 
     pfpLink: "https://freepngimg.com/thumb/shape/29783-1-circle-hd.png"
   };
@@ -130,22 +131,25 @@ export function Profile({userName,onLogOut}) {
   function refreshProfiles(){
     const newProfiles = profiles.slice();
     setProfile(newProfiles);
+
+    /*//Debug info
     for(let i=0;i<profiles.length;i++){
-      console.log(profiles[i].u)
-    }
+      console.log(profiles[i].username+": "+profiles[i].num+", "+profiles[i].services);
+    }*/
   }
 
   function addProfile(){
     const newProfiles = profiles.slice();
     let newProfile={...baseProfile};
     newProfile.num=nextProfileNum;
+    newProfile.username="Profile "+newProfile.num;
     setProfileNum(nextProfileNum+1);
     newProfiles.push(newProfile);
     setProfile(newProfiles);
   }
 
   function generateBox(profile){
-    return <ProfileBox num={profile.num} usedStyle={{  transform:"translateX("+Math.max(0,35-(12*(profiles.length-1)))+"vw)"}} services={profile.services} username={"Profile "+profile.num} pfpLink={profile.pfpLink} onServicesUpdated={refreshProfiles} onDelete={()=>{onDelete(profile.num);}} key={profile.num} />
+    return <ProfileBox profile={profile} usedStyle={{  transform:"translateX("+Math.max(0,35-(12*(profiles.length-1)))+"vw)"}} pfpLink={profile.pfpLink} onServicesUpdated={refreshProfiles} onDelete={()=>{onDelete(profile.num);}} key={profile.num} />
   }
 
   const profileBoxes=profiles.map((profile)=>{return generateBox(profile)});
