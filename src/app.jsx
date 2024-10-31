@@ -28,7 +28,7 @@ export default function App() {
             }}
           />
           } exact />
-          <Route path='/profile' element={<Profile />} />
+          <Route path='/profile' element={<Profile userName={userName} />} />
           <Route path='*' element={<NotFound />} />
         </Routes>
         <footer className="bg-dark text-white-90 container-fluid">

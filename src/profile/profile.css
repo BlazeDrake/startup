@@ -11,7 +11,6 @@ main {
 }
 #profileInfo{
   flex: 3;
-  float: center;
 }
 
 #logged-in{
@@ -32,27 +31,36 @@ main {
 .profile-header{
   margin:0px;
   padding:5px;
+  -ms-transform: translate(45vw, 0);
+  transform: translate(45vw, 0);
+  width: 50vh;
 }
 
 /*(14nem), where n=number of profiles*/
 .profile-footer{
   margin:0px;
   padding:5px;
+  -ms-transform: translate(45vw, 0);
+  transform: translate(45vw, 0);
 }
 
 .profile-parent{
   flex: 1 calc(50vh - 110px);
   display: flex;
   flex-direction: row;
-  align-items: start;
+  align-items: center;
+  overflow-x: auto;
+  overflow-y: hidden;
   margin:0px;
   padding:0px;
+  width: 100vw;
 }
 
 .profile-box{
   height: 50vh;
   min-height: 350px;
-  margin: 10px;
+  margin: 5px;
+  padding: 5px;
   flex: 1 350px;
   max-width: 500px;
   min-width:350px;
@@ -61,6 +69,8 @@ main {
   background-color: rgb(63, 80, 80);
 
 }
+
+
 
 .profile-head{
   flex: 0 15px;
@@ -98,6 +108,14 @@ main {
 
 .service-name{
   margin: 5px 0;
+}
+
+.service-parent{
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 35vh;
+  margin: 10px;
+  width: 75%;
 }
 
 .float-right{

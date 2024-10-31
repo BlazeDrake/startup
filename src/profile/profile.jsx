@@ -1,8 +1,12 @@
 import React from 'react';
 import {useState} from 'react';
 import './profile.css';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import LoginInfo from "./loginInfo.jsx"
 
-export function ProfileBox({num,pfpLink,username,services, onDelete, onServicesUpdated}){
+export function ProfileBox({num,pfpLink,username,services, onDelete, onServicesUpdated, usedStyle}){
 
   let i=-1;//Negative one so it starts at 0
   let serviceNames=generateInputFields();
@@ -15,9 +19,11 @@ export function ProfileBox({num,pfpLink,username,services, onDelete, onServicesU
   function generateInputFields(){
     return services.map((service, storedIndex)=>{
       return (
+        <Col>
         <div className="col service-name">
           <input placeholder={service} onChange={(e) => onChangeService(storedIndex,e.target.value)} key={storedIndex}/>
         </div>
+        </Col>
       )
     });
   }
@@ -38,7 +44,7 @@ export function ProfileBox({num,pfpLink,username,services, onDelete, onServicesU
   }
   
   return(
-    <div className="profile-box">
+    <div className="profile-box" style={usedStyle}>
     <section className="profile-head">
                 Profile {num}                                    
                 <button className="btn btn-danger float-right" onClick={onDelete} >
@@ -67,8 +73,13 @@ export function ProfileBox({num,pfpLink,username,services, onDelete, onServicesU
           <div>
             <input placeholder={username} />
           </div>
-          <div className="row">
-            {serviceNames}
+          <div className="row service-parent">
+            <Container>
+              <Row>
+              {serviceNames}
+              </Row>
+            </Container>
+
           </div>
           <p className="manage-service">
             <button type="button" className="btn btn-success" onClick={onAddService}>
@@ -85,14 +96,14 @@ export function ProfileBox({num,pfpLink,username,services, onDelete, onServicesU
   );
 }
 
-export function Profile() {
+export function Profile({userName}) {
 
   const baseProfile={
     num: 1,
     services:["Service 1","Service 2"], 
     pfpLink: "https://freepngimg.com/thumb/shape/29783-1-circle-hd.png"
   };
-  const [profiles, setProfile] = useState([baseProfile]);
+  const [profiles, setProfile] = useState([{...baseProfile, services:["Service 1","Service 2"]}]);
   const [nextProfileNum,setProfileNum] = useState(2);//Start at 2
 
   function onDelete(num){
@@ -120,34 +131,23 @@ export function Profile() {
     setProfile(newProfiles);
   }
 
-  const profileBoxes=profiles.map((profile)=>{
-    return <ProfileBox num={profile.num} services={profile.services} username={"Profile "+profile.num} pfpLink={profile.pfpLink} onServicesUpdated={refreshProfiles} onDelete={()=>{onDelete(profile.num);}} key={profile.num}/>
-  });
+  function generateBox(profile){
+    return <ProfileBox num={profile.num} usedStyle={{  transform:"translateX("+Math.max(0,35-(12*(profiles.length-1)))+"vw)"}} services={profile.services} username={"Profile "+profile.num} pfpLink={profile.pfpLink} onServicesUpdated={refreshProfiles} onDelete={()=>{onDelete(profile.num);}} key={profile.num} />
+  }
+
+  const profileBoxes=profiles.map((profile)=>{return generateBox(profile)});
 
   return (
     <main className="bg-secondary text-dark">
-    <div id="loginInfo">
-      <div className="login container-fluid">
-        <span id="logged-in">&lt;my@email.com&gt; logged in</span>
-        <form method="get" action="/">
-          
-            <button type="submit" className="btn btn-primary">Logout</button>
-          
-        </form>        
-      </div>
-      <div className="user-update">
-        ExampleUser updated their profile!
-      </div>
-    </div>
-
-    <section className="profile-parent text-light">
-             {profileBoxes}
-      </section>
-
+    <LoginInfo userName={userName} />
 
     <div id="profileInfo">
       <section className="profile-header">
-        <div><h2>Profiles</h2></div>   
+        <h2>Profiles</h2>   
+      </section>
+
+      <section className="profile-parent text-light" >
+             {profileBoxes}
       </section>
 
       <section>
