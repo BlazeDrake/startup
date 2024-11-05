@@ -5,7 +5,8 @@ import './profile.css';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import LoginInfo from "./loginInfo.jsx"
+import LoginInfo from "./loginInfo.jsx";
+import { UpdateEvent, UpdateNotifier } from './updateNotifier';
 
 
 export function ProfileBox({profile, onDelete, onServicesUpdated, usedStyle}){
@@ -48,7 +49,16 @@ export function ProfileBox({profile, onDelete, onServicesUpdated, usedStyle}){
   
   function onChangeUsername(newVal){
     profile.username=newVal;
+    
     refresh();
+  }
+
+  function generatePfp(src){
+    profile.pfpLink=src;
+    refresh();
+  }
+  function downloadPfp(){
+    console.log("Downloaded pfp for profile "+num);
   }
 
   return(
@@ -64,16 +74,22 @@ export function ProfileBox({profile, onDelete, onServicesUpdated, usedStyle}){
         <p>
           <img src={profile.pfpLink} width="75em" />
         </p>
-          <button className="btn btn-secondary ">
+          <button className="btn btn-secondary" onClick={()=>{
+            generatePfp("https://freepngimg.com/thumb/shape/29783-1-circle-hd.png")
+          }}>
             Generate from art
           </button>
-          <button className="btn btn-secondary">
+          <button className="btn btn-secondary" onClick={()=>{
+            generatePfp("https://as2.ftcdn.net/v2/jpg/04/47/62/27/1000_F_447622730_4aM9MuFrdYlAuqPuvQXckZH0M43JWy0g.jpg")
+          }}>
             Generate 8-bit image
           </button>
-          <button className="btn btn-success">
+          <button className="btn btn-success" onClick={()=>{
+            generatePfp("https://freepngimg.com/thumb/shape/29783-1-circle-hd.png")
+          }}>
             Upload
           </button>
-          <button className="btn btn-primary">
+          <button className="btn btn-primary" onClick={downloadPfp}>
             Download current image
           </button>
       </span>
@@ -126,10 +142,12 @@ export function Profile({userName,onLogOut}) {
       }
     }
     setProfile(newProfiles);
+    UpdateNotifier.broadcastEvent(userName, UpdateEvent.Remove, { name: userName});
   }
 
   function refreshProfiles(){
     const newProfiles = profiles.slice();
+
     setProfile(newProfiles);
 
     /*//Debug info
@@ -146,6 +164,7 @@ export function Profile({userName,onLogOut}) {
     setProfileNum(nextProfileNum+1);
     newProfiles.push(newProfile);
     setProfile(newProfiles);
+    UpdateNotifier.broadcastEvent(userName, UpdateEvent.Add, { name: userName});
   }
 
   function generateBox(profile){

@@ -28,11 +28,13 @@ export default function LoginInfo(props) {
     const messageArray = [];
     for (const [i, event] of events.entries()) {
       let message = 'unknown';
-      if (event.type === UpdateEvent.End) {
-        message = `scored ${event.value.score}`;
-      } else if (event.type === UpdateEvent.Start) {
-        message = `started a new game`;
-      } else if (event.type === UpdateEvent.System) {
+      if (event.type === UpdateEvent.Add) {
+        message = `added a profile`;
+      } 
+      else if (event.type === UpdateEvent.Remove) {
+        message = `removed a profile`;
+      } 
+      else if (event.type === UpdateEvent.System) {
         message = event.value.msg;
       }
 

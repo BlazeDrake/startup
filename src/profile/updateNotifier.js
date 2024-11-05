@@ -1,7 +1,7 @@
 const UpdateEvent = {
     System: 'system',
-    End: 'gameEnd',
-    Start: 'gameStart',
+    Add: 'add',
+    Remove: 'remove'
   };
   
   class EventMessage {
@@ -19,10 +19,10 @@ const UpdateEvent = {
     constructor() {
       // Simulate chat messages that will eventually come over WebSocket
       setInterval(() => {
-        const score = Math.floor(Math.random() * 3000);
+        const id = Math.floor(Math.random() * 3000);
         const date = new Date().toLocaleDateString();
-        const userName = 'Eich';
-        this.broadcastEvent(userName, UpdateEvent.End, { name: userName, score: score, date: date });
+        const userName = 'User'+id;
+        this.broadcastEvent(userName, Math.random()>0.5?UpdateEvent.Add:UpdateEvent.Remove, { name: userName});
       }, 5000);
     }
   
