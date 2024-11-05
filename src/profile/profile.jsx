@@ -142,7 +142,7 @@ export function Profile({userName,onLogOut}) {
   function loadProfileNum(){
     let storedProfiles=localStorage.getItem(profileListKey);
     if(storedProfiles){
-      return 2;
+      return JSON.parse(storedProfiles).length+1;
     }
     else{
       return 2;
