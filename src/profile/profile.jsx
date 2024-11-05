@@ -142,7 +142,8 @@ export function Profile({userName,onLogOut}) {
   function loadProfileNum(){
     let storedProfiles=localStorage.getItem(profileListKey);
     if(storedProfiles){
-      return JSON.parse(storedProfiles).length+1;
+      let returnNum=JSON.parse(storedProfiles).length+1;
+      return returnNum<2?2:returnNum;
     }
     else{
       return 2;
@@ -164,12 +165,22 @@ export function Profile({userName,onLogOut}) {
   }
   function onDelete(num){
     const newProfiles = profiles.slice();
+    let isPast=false;
+    let spliceIndex=0;
     for(let i=0;i<newProfiles.length;i++){
       if(newProfiles[i].num==num){
-        newProfiles.splice(i,1);
-        break;
+        spliceIndex=i;
+        isPast=true;
+      }
+      //Make sure there aren't any gaps in the profile numbering system
+      else if(isPast){
+        newProfiles[i].num--;
       }
     }
+    if(isPast){
+      newProfiles.splice(spliceIndex,1);
+    }
+    setProfileNum(nextProfileNum-1);
     updateProfile(newProfiles);
     UpdateNotifier.broadcastEvent(userName, UpdateEvent.Remove, { name: userName});
   }
