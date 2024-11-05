@@ -124,23 +124,43 @@ export function ProfileBox({profile, onDelete, onServicesUpdated, usedStyle}){
 
 export function Profile({userName,onLogOut}) {
 
+  const profileListKey="profiles"
   const baseProfile={
     num: 1,
     username:"Profile 1",
     services:["Service 1","Service 2"], 
     pfpLink: "https://freepngimg.com/thumb/shape/29783-1-circle-hd.png"
   };
-  const [profiles, setProfile] = useState([{...baseProfile, services:["Service 1","Service 2"]}]);
-  const [nextProfileNum,setProfileNum] = useState(2);//Start at 2
+  
+  let storedProfiles=checkForProfiles();
+
+  const [profiles, setProfile] = useState(storedProfiles.length>0?storedProfiles:[{...baseProfile, services:["Service 1","Service 2"]}]);
+  const [nextProfileNum,setProfileNum] = useState(loadProfileNum());//Start at 2
 
   const navigate = useNavigate();
 
+  function loadProfileNum(){
+    let storedProfiles=localStorage.getItem(profileListKey);
+    if(storedProfiles){
+      return 2;
+    }
+    else{
+      return 2;
+    }
+  }
+
+  function checkForProfiles(){
+    let profileList=[];
+    let profileToLoad=localStorage.getItem(profileListKey);
+    if(profileToLoad){
+      profileList=JSON.parse(profileToLoad);
+    }
+    return profileList;
+  }
+
   function updateProfile(newProfiles){
     setProfile(newProfiles);
-    newProfiles.forEach((profile)=>{
-      let profileJson=JSON.stringify(profile);
-      localStorage.setItem("profiles/"+profile.num,profileJson);
-    })
+    localStorage.setItem(profileListKey,JSON.stringify(newProfiles));
   }
   function onDelete(num){
     const newProfiles = profiles.slice();
