@@ -60,6 +60,10 @@ export function ProfileBox({profile, onDelete, onServicesUpdated, usedStyle}){
   function downloadPfp(){
     console.log("Downloaded pfp for profile "+num);
   }
+  function uploadPfp(){
+    generatePfp("https://freepngimg.com/thumb/shape/29783-1-circle-hd.png");
+    console.log("Upload to db");
+  }
 
   return(
     <div className="profile-box" style={usedStyle}>
@@ -84,9 +88,7 @@ export function ProfileBox({profile, onDelete, onServicesUpdated, usedStyle}){
           }}>
             Generate 8-bit image
           </button>
-          <button className="btn btn-success" onClick={()=>{
-            generatePfp("https://freepngimg.com/thumb/shape/29783-1-circle-hd.png")
-          }}>
+          <button className="btn btn-success" onClick={uploadPfp}>
             Upload
           </button>
           <button className="btn btn-primary" onClick={downloadPfp}>
