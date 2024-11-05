@@ -135,6 +135,13 @@ export function Profile({userName,onLogOut}) {
 
   const navigate = useNavigate();
 
+  function updateProfile(newProfiles){
+    setProfile(newProfiles);
+    newProfiles.forEach((profile)=>{
+      let profileJson=JSON.stringify(profile);
+      localStorage.setItem("profiles/"+profile.num,profileJson);
+    })
+  }
   function onDelete(num){
     const newProfiles = profiles.slice();
     for(let i=0;i<newProfiles.length;i++){
@@ -143,14 +150,14 @@ export function Profile({userName,onLogOut}) {
         break;
       }
     }
-    setProfile(newProfiles);
+    updateProfile(newProfiles);
     UpdateNotifier.broadcastEvent(userName, UpdateEvent.Remove, { name: userName});
   }
 
   function refreshProfiles(){
     const newProfiles = profiles.slice();
 
-    setProfile(newProfiles);
+    updateProfile(newProfiles);
 
     /*//Debug info
     for(let i=0;i<profiles.length;i++){
@@ -165,7 +172,7 @@ export function Profile({userName,onLogOut}) {
     newProfile.username="Profile "+newProfile.num;
     setProfileNum(nextProfileNum+1);
     newProfiles.push(newProfile);
-    setProfile(newProfiles);
+    updateProfile(newProfiles);
     UpdateNotifier.broadcastEvent(userName, UpdateEvent.Add, { name: userName});
   }
 
