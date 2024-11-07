@@ -61,7 +61,7 @@ export function ProfileBox({profile, onDelete, onServicesUpdated, usedStyle}){
     console.log("Downloaded pfp for profile "+num);
   }
   function uploadPfp(){
-    generatePfp("https://freepngimg.com/thumb/shape/29783-1-circle-hd.png");
+    generatePfp("https://www.17thshard.com/forum/uploads/monthly_2017_12/PatternWoR.png.b0bad21c928a7fd60d7a52f163914930.png");
     console.log("Upload to db");
   }
 
