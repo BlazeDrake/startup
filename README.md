@@ -55,3 +55,16 @@ For this deliverable I properly styled the application into its final appearance
 * Application elements - Used good contrast and whitespace
 * Application text content - Consistent fonts
 * Application images - They are static still, but float is used to ensure they are in the right segment of the box.
+
+## React Deliverable
+
+For this deliverable I used JavaScript and React so that the application completely works for a single user. I also added placeholders for future technology.
+
+ Bundled and transpiled - done!
+ Components - Login, profile boxes, profile list are all components with mocks for login, WebSocket, and generating/uploading profile pictures.
+ login - When you press enter or the login button it takes you to the profiles page.
+ database - Displayed curently created profiles, with all relevant data(username, service list, profile picture) saved. Currently this is stored and retrieved from local storage, but it will be replaced with the database data later.
+ WebSocket - I used the setInterval function to periodically send a message about a random user adding or removing a profile. This will be replaced with WebSocket messages later.
+ application logic - You can create new profile boxes with the add profile button. You can also edit the properties of a profile, including it's username, the list of services for it, and the profile picture (currently limited to 3 options, will include options to generate and upload them with databases).
+ Router - Routing between login and profile components.
+ Hooks - I use useState to store information about the current profiles created, the services within them, as well as storing what number should be used for the auto generated name & id of the next created profile.
