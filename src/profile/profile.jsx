@@ -132,36 +132,42 @@ export function Profile({userName,onLogOut}) {
     pfpLink: "https://freepngimg.com/thumb/shape/29783-1-circle-hd.png"
   };
   
-  let storedProfiles=checkForProfiles();
 
-  const [profiles, setProfile] = useState(storedProfiles.length>0?storedProfiles:[{...baseProfile, services:["Service 1","Service 2"]}]);
+  const [profiles, setProfile] = useState([{...baseProfile, services:["Service 1","Service 2"]}]);
   const [nextProfileNum,setProfileNum] = useState(loadProfileNum());//Start at 2
+
+  React.useEffect(() => {
+    fetch(`api/profiles/load/${userName}`)
+    .then((response) => response.json())
+    .then((profilesToLoad)=>{
+      if(profilesToLoad){
+        console.log(profilesToLoad.data)
+        let profileList=JSON.parse(profilesToLoad.data);
+        console.log(profileList);
+        setProfile(profileList);
+      }
+    });
+  }, []);
 
   const navigate = useNavigate();
 
   function loadProfileNum(){
-    let storedProfiles=localStorage.getItem(profileListKey);
-    if(storedProfiles){
-      let returnNum=JSON.parse(storedProfiles).length+1;
-      return returnNum<2?2:returnNum;
-    }
-    else{
-      return 2;
-    }
+    let returnVal=2;
+    fetch(`api/profiles/load/${userName}`)
+      .then((response) => response.json())
+      .then((storedProfiles)=>{
+        if(storedProfiles){
+          let returnNum=JSON.parse(storedProfiles.data).length+1;
+          returnVal= returnNum<2?2:returnNum;
+        }
+      });
+    return returnVal;
   }
 
-  function checkForProfiles(){
-    let profileList=[];
-    let profileToLoad=localStorage.getItem(profileListKey);
-    if(profileToLoad){
-      profileList=JSON.parse(profileToLoad);
-    }
-    return profileList;
-  }
-
-  function updateProfile(newProfiles){
+  async function updateProfile(newProfiles){
     setProfile(newProfiles);
     localStorage.setItem(profileListKey,JSON.stringify(newProfiles));
+
   }
   function onDelete(num){
     const newProfiles = profiles.slice();

@@ -15,12 +15,12 @@ cd ~/source/repos/CS_BYU/simon-html
 
 
 Simon:
-./deployFiles.sh -k <yourpemkey> -h cs260-profile.click -s simon
+./deployService.sh -k <yourpemkey> -h cs260-profile.click -s simon
 
 Startup:
  cd C:/Users/blaze/source/repos/CS_BYU/startup
 
- ./deployFiles.sh -k <yourpemkey> -h cs260-profile.click -s startup
+ ./deployService.sh -k <yourpemkey> -h cs260-profile.click -s startup
 
 
 ## startup notes
