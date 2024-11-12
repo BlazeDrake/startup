@@ -140,9 +140,9 @@ export function Profile({userName,onLogOut}) {
     fetch(`api/profiles/load/${userName}`)
     .then((response) => response.json())
     .then((profilesToLoad)=>{
-      if(profilesToLoad){
-        console.log(profilesToLoad.data)
-        let profileList=JSON.parse(profilesToLoad.data);
+      if(profilesToLoad.data?.length>0){
+        console.log(profilesToLoad.data);
+        let profileList=profilesToLoad.data;
         console.log(profileList);
         setProfile(profileList);
       }
@@ -155,9 +155,11 @@ export function Profile({userName,onLogOut}) {
     let returnVal=2;
     fetch(`api/profiles/load/${userName}`)
       .then((response) => response.json())
-      .then((storedProfiles)=>{
-        if(storedProfiles){
-          let returnNum=JSON.parse(storedProfiles.data).length+1;
+      .then((profilesToLoad)=>{
+        console.log(profilesToLoad.data);
+        if(profilesToLoad.data){
+          console.log(profilesToLoad.data.length)
+          let returnNum=profilesToLoad.data.length+1;
           returnVal= returnNum<2?2:returnNum;
         }
       });
@@ -166,7 +168,12 @@ export function Profile({userName,onLogOut}) {
 
   async function updateProfile(newProfiles){
     setProfile(newProfiles);
-    localStorage.setItem(profileListKey,JSON.stringify(newProfiles));
+    let sentData={profiles:newProfiles};
+    await fetch(`api/profiles/set/${userName}`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(sentData),
+    });
 
   }
   function onDelete(num){

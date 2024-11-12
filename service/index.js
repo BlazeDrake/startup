@@ -6,7 +6,7 @@ const app = express();
 let users = {};
 //Object mapping profile data of each person to their username
 let profileData={
-  "e":`[{"num":1,"username":"Profile 1","services":["Service 1","Service 2"],"pfpLink":"https://freepngimg.com/thumb/shape/29783-1-circle-hd.png"},{"num":2,"username":"Profile 2","services":["Service 1","Service 2"],"pfpLink":"https://freepngimg.com/thumb/shape/29783-1-circle-hd.png"},{"num":3,"username":"Profile 3","services":["Service 1","Service 2"],"pfpLink":"https://freepngimg.com/thumb/shape/29783-1-circle-hd.png"},{"num":4,"username":"Profile 4","services":["Service 1","Service 2"],"pfpLink":"https://freepngimg.com/thumb/shape/29783-1-circle-hd.png"}]`
+  "e":[{"num":1,"username":"Profile 1","services":["Test 1","Service 2"],"pfpLink":"https://freepngimg.com/thumb/shape/29783-1-circle-hd.png"},{"num":2,"username":"Profile 2","services":["Service 1","Service 2"],"pfpLink":"https://freepngimg.com/thumb/shape/29783-1-circle-hd.png"},{"num":3,"username":"Profile 3","services":["Service 1","Service 2"],"pfpLink":"https://freepngimg.com/thumb/shape/29783-1-circle-hd.png"},{"num":4,"username":"Profile 4","services":["Service 1","Service 2"],"pfpLink":"https://freepngimg.com/thumb/shape/29783-1-circle-hd.png"}]
 };
 
 
@@ -61,11 +61,12 @@ apiRouter.delete('/auth/logout', (req, res) => {
 });
 
 apiRouter.get('/profiles/load/:username',(req, res) => {
-  res.send({data: profileData[req.params.username]});
+  let returnData={data: profileData[req.params.username]};
+  res.send(returnData);
 });
 
 apiRouter.post('/profiles/set/:username', (req, res) => {
-  profileData[req.params.username]=req.body;
+  profileData[req.params.username]=req.body.profiles;
   res.send(profileData);
 });
 
