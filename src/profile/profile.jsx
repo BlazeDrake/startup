@@ -134,7 +134,7 @@ export function Profile({userName,onLogOut}) {
   
 
   const [profiles, setProfile] = useState([{...baseProfile, services:["Service 1","Service 2"]}]);
-  const [nextProfileNum,setProfileNum] = useState(loadProfileNum());//Start at 2
+  const [nextProfileNum,setProfileNum] = useState(2);//Start at 2
 
   React.useEffect(() => {
     fetch(`api/profiles/load/${userName}`)
@@ -151,8 +151,7 @@ export function Profile({userName,onLogOut}) {
 
   const navigate = useNavigate();
 
-  function loadProfileNum(){
-    let returnVal=2;
+  React.useEffect(() => {
     fetch(`api/profiles/load/${userName}`)
       .then((response) => response.json())
       .then((profilesToLoad)=>{
@@ -160,11 +159,10 @@ export function Profile({userName,onLogOut}) {
         if(profilesToLoad.data){
           console.log(profilesToLoad.data.length)
           let returnNum=profilesToLoad.data.length+1;
-          returnVal= returnNum<2?2:returnNum;
+          setProfileNum(returnNum<2?2:returnNum);
         }
       });
-    return returnVal;
-  }
+  }, []);
 
   async function updateProfile(newProfiles){
     setProfile(newProfiles);
