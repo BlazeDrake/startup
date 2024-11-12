@@ -5,9 +5,9 @@ const app = express();
 // The profile data and users are saved in memory and disappear whenever the service is restarted.
 let users = {};
 //Object mapping profile data of each person to their username
-let profileData={
+let profileData={};/*{
   "e":[{"num":1,"username":"Profile 1","services":["Test 1","Service 2"],"pfpLink":"https://freepngimg.com/thumb/shape/29783-1-circle-hd.png"},{"num":2,"username":"Profile 2","services":["Service 1","Service 2"],"pfpLink":"https://freepngimg.com/thumb/shape/29783-1-circle-hd.png"},{"num":3,"username":"Profile 3","services":["Service 1","Service 2"],"pfpLink":"https://freepngimg.com/thumb/shape/29783-1-circle-hd.png"},{"num":4,"username":"Profile 4","services":["Service 1","Service 2"],"pfpLink":"https://freepngimg.com/thumb/shape/29783-1-circle-hd.png"}]
-};
+};*/
 
 
 // The service port. In production the front-end code is statically hosted by the service on the same port.

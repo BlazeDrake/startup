@@ -141,9 +141,7 @@ export function Profile({userName,onLogOut}) {
     .then((response) => response.json())
     .then((profilesToLoad)=>{
       if(profilesToLoad.data?.length>0){
-        console.log(profilesToLoad.data);
         let profileList=profilesToLoad.data;
-        console.log(profileList);
         setProfile(profileList);
       }
     });
@@ -155,9 +153,7 @@ export function Profile({userName,onLogOut}) {
     fetch(`api/profiles/load/${userName}`)
       .then((response) => response.json())
       .then((profilesToLoad)=>{
-        console.log(profilesToLoad.data);
         if(profilesToLoad.data){
-          console.log(profilesToLoad.data.length)
           let returnNum=profilesToLoad.data.length+1;
           setProfileNum(returnNum<2?2:returnNum);
         }
