@@ -1,4 +1,5 @@
 const express = require('express');
+const fileUpload = require('express-fileupload');
 const uuid = require('uuid');
 const app = express();
 
@@ -20,12 +21,8 @@ app.use(express.json());
 app.use(express.static('public'));
 
 app.use(fileUpload({
-  // Configure file uploads with maximum file size 10MB
-  limits: { fileSize: 10 * 1024 * 1024 },
-
-  // Temporarily store uploaded files to disk, rather than buffering in memory
-  useTempFiles : false,
-  tempFileDir : '/tmp/'
+  // Configure file uploads with maximum file size 5kb
+  limits: { fileSize: 50 * 1024 }
 }));
 
 // Router for service endpoints
@@ -77,7 +74,26 @@ apiRouter.post('/profiles/set/:username', (req, res) => {
   res.send(profileData);
 });
 
-apiRouter.post('/profiles/upload')
+apiRouter.post('/profiles/uploadPfp', function(req, res) {
+  let uploadPath;
+
+  if (!req.files || Object.keys(req.files).length === 0) {
+    return res.status(400).send({msg:'No files were uploaded.'});
+  }
+
+  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+  let sampleFile = req.files.newPfp;
+  let storedPath='profilePics\\' + username +"_"+ sampleFile.name
+  uploadPath = __dirname +'\\'+storedPath;
+
+  // Use the mv() method to place the file somewhere on your server
+  sampleFile.mv(uploadPath, function(err) {
+    if (err)
+      return res.status(500).send(err);
+
+    res.send({path:'service/'+storedPath.replace('\\','/')});
+  });
+});
 
 // Return the application's default page if the path is unknown
 app.use((_req, res) => {

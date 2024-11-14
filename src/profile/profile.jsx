@@ -11,7 +11,7 @@ import LoginInfo from "./loginInfo.jsx";
 import { UpdateEvent, UpdateNotifier } from './updateNotifier';
 
 
-export function ProfileBox({profile, onDelete, onServicesUpdated, usedStyle}){
+export function ProfileBox({userName, profile, onDelete, onServicesUpdated, usedStyle}){
 
   const {num}=profile;
   const [showUpload,setShowUpload]=React.useState(false);
@@ -63,13 +63,28 @@ export function ProfileBox({profile, onDelete, onServicesUpdated, usedStyle}){
   function downloadPfp(){
     console.log("Downloaded pfp for profile "+num);
   }
-  async function uploadPfp(){
+  function uploadPfp(){
     //generatePfp("https://www.17thshard.com/forum/uploads/monthly_2017_12/PatternWoR.png.b0bad21c928a7fd60d7a52f163914930.png");
     //console.log("Upload to db");
-
-    //Upload to backend
-
     //Set url ot the correct one
+
+    let data = new FormData(document.getElementById('uploadForm'+profile.num));
+
+    // Send form data to server using Fetch POST
+    fetch(`api/profiles/uploadPfp`, {
+        method: "post",
+        body: data
+      })
+      .then(res => res.json()) // Read server response as text
+      .then(data => {
+        if(data.path){
+          profile.pfpLink='/'+data.path;
+          refresh();
+        }
+    });
+
+    setShowUpload(false);
+    return false;
   }
 
   return(
@@ -127,7 +142,12 @@ export function ProfileBox({profile, onDelete, onServicesUpdated, usedStyle}){
     <Modal show={showUpload} centered>
       <Modal.Body>
 
-      <input type="file" accept="image/*" onChange={uploadPfp} />
+      <form
+        id={'uploadForm'+profile.num}
+        encType="multipart/form-data">
+          <input type="file" accept="image/*" name="newPfp"/>
+          <Button onClick={uploadPfp} className="btn btn-primary">Upload</Button>
+      </form>    
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={()=>{setShowUpload(false)}}>Close</Button>
@@ -232,7 +252,7 @@ export function Profile({userName,onLogOut}) {
   }
 
   function generateBox(profile){
-    return <ProfileBox profile={profile} usedStyle={{  transform:"translateX("+Math.max(0,35-(12*(profiles.length-1)))+"vw)"}} pfpLink={profile.pfpLink} onServicesUpdated={refreshProfiles} onDelete={()=>{onDelete(profile.num);}} key={profile.num} />
+    return <ProfileBox userName={userName} profile={profile} usedStyle={{  transform:"translateX("+Math.max(0,35-(12*(profiles.length-1)))+"vw)"}} pfpLink={profile.pfpLink} onServicesUpdated={refreshProfiles} onDelete={()=>{onDelete(profile.num);}} key={profile.num} />
   }
 
   const profileBoxes=profiles.map((profile)=>{return generateBox(profile)});
