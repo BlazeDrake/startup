@@ -22,7 +22,10 @@ app.use(express.static('public'));
 
 app.use(fileUpload({
   // Configure file uploads with maximum file size 5kb
-  limits: { fileSize: 50 * 1024 }
+  limits: { fileSize: 50 * 1024 },
+
+  useTempFiles: true,
+  tempFileDir:'\\tmp\\'
 }));
 
 // Router for service endpoints
@@ -86,7 +89,7 @@ apiRouter.post('/profiles/uploadPfp/:username', function(req, res) {
   let storedPath='profilePics\\' + req.params.username +"_"+ sampleFile.name
   uploadPath = __dirname +'\\'+storedPath;
 
-  // Use the mv() method to place the file somewhere on your server
+  // Use the mv() method to place the file somewhere on your server.
   sampleFile.mv(uploadPath, function(err) {
     if (err)
       return res.status(500).send(err);
