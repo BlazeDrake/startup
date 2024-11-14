@@ -13,7 +13,7 @@ import { UpdateEvent, UpdateNotifier } from './updateNotifier';
 function randomHex(){
   let hex= Math.floor(Math.random() * 16777215).toString(16);
   while(hex.length<6){
-    ex+='0';
+    hex+='0';
   }
   return hex;
 }
@@ -90,7 +90,20 @@ export function ProfileBox({userName, profile, onDelete, onServicesUpdated, used
   }
 
   function generateArt(){
-
+    let chosenVal=Math.floor(Math.random()*10000);
+    fetch('https://collectionapi.metmuseum.org/public/collection/v1/objects/'+chosenVal)
+      .then((x) => x.json())
+      .then((json)=>{
+        if(json.message!=="ObjectID not found"&&json.isPublicDomain){
+          generatePfp(json.primaryImageSmall);
+        }
+        else{
+          generateArt();
+        }
+      })
+      .catch((e)=>{
+        console.log("Bad val: "+chosenVal);
+      })
   }
 
   function generatePfp(src){
