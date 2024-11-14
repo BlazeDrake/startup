@@ -68,3 +68,12 @@ For this deliverable I used JavaScript and React so that the application complet
  application logic - You can create new profile boxes with the add profile button. You can also edit the properties of a profile, including it's username, the list of services for it, and the profile picture (currently limited to 3 options, will include options to generate and upload them with databases).
  Router - Routing between login and profile components.
  Hooks - I use useState to store information about the current profiles created, the services within them, as well as storing what number should be used for the auto generated name & id of the next created profile.
+
+ ##Service Deliverable
+ For this deliverable I added backend endpoints that receives profile data, including username, used service list, and profile picture. I also used third party endpoints to generate profile pictures. 
+
+ Node.js/Express HTTP service - done!
+ Static middleware for frontend - done!
+ Calls to third party endpoints - Fetch api used for MET museum of art call to create placeholder profile pictures (the generate from art option).
+ Backend service endpoints - Placeholders for login that stores the current user on the server. Endpoints for profile storage.
+ Frontend calls service endpoints - I did this using the fetch function.
