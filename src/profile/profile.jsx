@@ -71,7 +71,7 @@ export function ProfileBox({userName, profile, onDelete, onServicesUpdated, used
     let data = new FormData(document.getElementById('uploadForm'+profile.num));
 
     // Send form data to server using Fetch POST
-    fetch(`api/profiles/uploadPfp`, {
+    fetch(`api/profiles/uploadPfp/`+userName, {
         method: "post",
         body: data
       })

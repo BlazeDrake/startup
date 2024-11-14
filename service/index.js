@@ -74,7 +74,7 @@ apiRouter.post('/profiles/set/:username', (req, res) => {
   res.send(profileData);
 });
 
-apiRouter.post('/profiles/uploadPfp', function(req, res) {
+apiRouter.post('/profiles/uploadPfp/:username', function(req, res) {
   let uploadPath;
 
   if (!req.files || Object.keys(req.files).length === 0) {
@@ -83,7 +83,7 @@ apiRouter.post('/profiles/uploadPfp', function(req, res) {
 
   // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
   let sampleFile = req.files.newPfp;
-  let storedPath='profilePics\\' + username +"_"+ sampleFile.name
+  let storedPath='profilePics\\' + req.params.username +"_"+ sampleFile.name
   uploadPath = __dirname +'\\'+storedPath;
 
   // Use the mv() method to place the file somewhere on your server
