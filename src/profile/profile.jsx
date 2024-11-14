@@ -185,8 +185,12 @@ export function ProfileBox({userName, profile, onDelete, onServicesUpdated, used
     </Modal>
     <Modal show={showPfp} centered>
       <Modal.Body>
-        Current Profile picture for profile {profile.num}
+        <Row>
+        <h3 className='text-center'>Current Profile picture for profile {profile.num}</h3>
+        </Row>
+        <Row>
         <img src={profile.pfpLink}/> 
+        </Row>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={()=>{setShowPfp(false)}}>Close</Button>
