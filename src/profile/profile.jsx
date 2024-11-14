@@ -10,6 +10,14 @@ import Button from 'react-bootstrap/Button';
 import LoginInfo from "./loginInfo.jsx";
 import { UpdateEvent, UpdateNotifier } from './updateNotifier';
 
+function randomHex(){
+  let hex= Math.floor(Math.random() * 16777215).toString(16);
+  while(hex.length<6){
+    ex+='0';
+  }
+  return hex;
+}
+
 
 export function ProfileBox({userName, profile, onDelete, onServicesUpdated, usedStyle}){
 
@@ -56,6 +64,35 @@ export function ProfileBox({userName, profile, onDelete, onServicesUpdated, used
     refresh();
   }
 
+  function paddedRandom(min,max){
+    let returnVal=Math.floor(Math.random()*(max-min))+min;
+    if(returnVal<10){
+      return "0"+returnVal;
+    }
+    else{
+      return returnVal.toString();
+    }
+  }
+
+  function generate8bit(){
+    let src="https://api.dicebear.com/9.x/pixel-art-neutral/svg?";
+    src+='backgroundColor='+randomHex();
+    src+='&eyes=variant'+paddedRandom(1,13);
+    src+='&eyesColor='+randomHex();
+    if(Math.random()<0.5){
+      src+='&mouth=happy'+paddedRandom(1,14);
+    }
+    else{
+      src+='&mouth=sad'+paddedRandom(1,11);
+    }
+
+    generatePfp(src);
+  }
+
+  function generateArt(){
+
+  }
+
   function generatePfp(src){
     profile.pfpLink=src;
     refresh();
@@ -100,14 +137,10 @@ export function ProfileBox({userName, profile, onDelete, onServicesUpdated, used
         <p>
           <img src={profile.pfpLink} width="75em" />
         </p>
-          <button className="btn btn-secondary" onClick={()=>{
-            generatePfp("https://freepngimg.com/thumb/shape/29783-1-circle-hd.png")
-          }}>
+          <button className="btn btn-secondary" onClick={generateArt}>
             Generate from art
           </button>
-          <button className="btn btn-secondary" onClick={()=>{
-            generatePfp("https://as2.ftcdn.net/v2/jpg/04/47/62/27/1000_F_447622730_4aM9MuFrdYlAuqPuvQXckZH0M43JWy0g.jpg")
-          }}>
+          <button className="btn btn-secondary" onClick={generate8bit}>
             Generate 8-bit image
           </button>
           <button className="btn btn-success" onClick={()=>{setShowUpload(true)}}>
