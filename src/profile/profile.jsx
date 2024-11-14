@@ -5,6 +5,8 @@ import './profile.css';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
 import LoginInfo from "./loginInfo.jsx";
 import { UpdateEvent, UpdateNotifier } from './updateNotifier';
 
@@ -12,6 +14,7 @@ import { UpdateEvent, UpdateNotifier } from './updateNotifier';
 export function ProfileBox({profile, onDelete, onServicesUpdated, usedStyle}){
 
   const {num}=profile;
+  const [showUpload,setShowUpload]=React.useState(false);
   let i=-1;//Negative one so it starts at 0
   let serviceNames=generateInputFields();
 
@@ -88,7 +91,7 @@ export function ProfileBox({profile, onDelete, onServicesUpdated, usedStyle}){
           }}>
             Generate 8-bit image
           </button>
-          <button className="btn btn-success" onClick={uploadPfp}>
+          <button className="btn btn-success" onClick={()=>{setShowUpload(true)}}>
             Upload
           </button>
           <button className="btn btn-primary" onClick={downloadPfp}>
@@ -117,10 +120,20 @@ export function ProfileBox({profile, onDelete, onServicesUpdated, usedStyle}){
           </p>
         </form>
     </section>
+    <Modal show={showUpload} centered>
+      <Modal.Body>
 
+      <input type="file" accept="image/*" onChange={uploadPfp} />
+      </Modal.Body>
+      <Modal.Footer>
+        <Button onClick={()=>{setShowUpload(false)}}>Close</Button>
+      </Modal.Footer>
+    </Modal>
   </div>  
   );
 }
+
+
 
 export function Profile({userName,onLogOut}) {
 
