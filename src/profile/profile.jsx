@@ -21,8 +21,8 @@ function randomHex(){
 
 export function ProfileBox({userName, profile, onDelete, onServicesUpdated, usedStyle}){
 
-  const {num}=profile;
   const [showUpload,setShowUpload]=React.useState(false);
+  const [showPfp,setShowPfp]=React.useState(false);
   let i=-1;//Negative one so it starts at 0
   let serviceNames=generateInputFields();
 
@@ -97,9 +97,6 @@ export function ProfileBox({userName, profile, onDelete, onServicesUpdated, used
     profile.pfpLink=src;
     refresh();
   }
-  function downloadPfp(){
-    console.log("Downloaded pfp for profile "+num);
-  }
   function uploadPfp(){
     //generatePfp("https://www.17thshard.com/forum/uploads/monthly_2017_12/PatternWoR.png.b0bad21c928a7fd60d7a52f163914930.png");
     //console.log("Upload to db");
@@ -127,7 +124,7 @@ export function ProfileBox({userName, profile, onDelete, onServicesUpdated, used
   return(
     <div className="profile-box" style={usedStyle}>
     <section className="profile-head">
-                Profile {num}                                    
+                Profile {profile.num}                                    
                 <button className="btn btn-danger float-right" onClick={onDelete} >
                   Delete
                 </button>
@@ -146,8 +143,8 @@ export function ProfileBox({userName, profile, onDelete, onServicesUpdated, used
           <button className="btn btn-success" onClick={()=>{setShowUpload(true)}}>
             Upload
           </button>
-          <button className="btn btn-primary" onClick={downloadPfp}>
-            Download current image
+          <button className="btn btn-primary" onClick={()=>{setShowPfp(true)}}>
+            View current image
           </button>
       </span>
         <form method="get"className="username-info">
@@ -184,6 +181,15 @@ export function ProfileBox({userName, profile, onDelete, onServicesUpdated, used
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={()=>{setShowUpload(false)}}>Close</Button>
+      </Modal.Footer>
+    </Modal>
+    <Modal show={showPfp} centered>
+      <Modal.Body>
+        Current Profile picture for profile {profile.num}
+        <img src={profile.pfpLink}/> 
+      </Modal.Body>
+      <Modal.Footer>
+        <Button onClick={()=>{setShowPfp(false)}}>Close</Button>
       </Modal.Footer>
     </Modal>
   </div>  
