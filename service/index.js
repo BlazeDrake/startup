@@ -19,7 +19,14 @@ app.use(express.json());
 // Serve up the front-end static content hosting
 app.use(express.static('public'));
 
+app.use(fileUpload({
+  // Configure file uploads with maximum file size 10MB
+  limits: { fileSize: 10 * 1024 * 1024 },
 
+  // Temporarily store uploaded files to disk, rather than buffering in memory
+  useTempFiles : false,
+  tempFileDir : '/tmp/'
+}));
 
 // Router for service endpoints
 var apiRouter = express.Router();

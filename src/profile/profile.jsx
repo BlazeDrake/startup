@@ -63,9 +63,13 @@ export function ProfileBox({profile, onDelete, onServicesUpdated, usedStyle}){
   function downloadPfp(){
     console.log("Downloaded pfp for profile "+num);
   }
-  function uploadPfp(){
-    generatePfp("https://www.17thshard.com/forum/uploads/monthly_2017_12/PatternWoR.png.b0bad21c928a7fd60d7a52f163914930.png");
-    console.log("Upload to db");
+  async function uploadPfp(){
+    //generatePfp("https://www.17thshard.com/forum/uploads/monthly_2017_12/PatternWoR.png.b0bad21c928a7fd60d7a52f163914930.png");
+    //console.log("Upload to db");
+
+    //Upload to backend
+
+    //Set url ot the correct one
   }
 
   return(
