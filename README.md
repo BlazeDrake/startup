@@ -75,5 +75,5 @@ For this deliverable I used JavaScript and React so that the application complet
  * Node.js/Express HTTP service - done!
  * Static middleware for frontend - done!
  * Calls to third party endpoints - Fetch api used for MET museum of art call to create placeholder profile pictures (the generate from art option).
- * Backend service endpoints - Placeholders for login that stores the current user on the server. Endpoints for profile storage.
+ * Backend service endpoints - Placeholders for login that stores the current user on the server. Endpoints for profile storage. There is also an endpoint for uploading custom profile pictures, but it seems that the file structure doesn't truly allow this to work yet.
  * Frontend calls service endpoints - I did this using the fetch function.
