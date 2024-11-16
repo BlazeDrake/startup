@@ -21,11 +21,8 @@ app.use(express.json());
 app.use(express.static('public'));
 
 app.use(fileUpload({
-  // Configure file uploads with maximum file size 5kb
-  limits: { fileSize: 50 * 1024 },
-
-  useTempFiles: true,
-  tempFileDir:'\\tmp\\'
+  // Configure file uploads with maximum file size 5mb
+  limits: { fileSize: 5 * 1024 *  1024 }
 }));
 
 // Router for service endpoints
