@@ -1,2 +1,8 @@
 node_modules
 service/profilePics
+
+# production
+/build
+/dist
+
+service/dbConfig.json
