@@ -1,10 +1,13 @@
+const cookieParser = require('cookie-parser');
+const bcrypt = require('bcrypt');
 const express = require('express');
 const fileUpload = require('express-fileupload');
 const uuid = require('uuid');
 const app = express();
+const DB = require('./database.js');
 
-// The profile data and users are saved in memory and disappear whenever the service is restarted.
-let users = {};
+const authCookieName = 'token';
+
 //Object mapping profile data of each person to their username
 let profileData={};/*{
   "e":[{"num":1,"username":"Profile 1","services":["Test 1","Service 2"],"pfpLink":"https://freepngimg.com/thumb/shape/29783-1-circle-hd.png"},{"num":2,"username":"Profile 2","services":["Service 1","Service 2"],"pfpLink":"https://freepngimg.com/thumb/shape/29783-1-circle-hd.png"},{"num":3,"username":"Profile 3","services":["Service 1","Service 2"],"pfpLink":"https://freepngimg.com/thumb/shape/29783-1-circle-hd.png"},{"num":4,"username":"Profile 4","services":["Service 1","Service 2"],"pfpLink":"https://freepngimg.com/thumb/shape/29783-1-circle-hd.png"}]
@@ -17,8 +20,14 @@ const port = process.argv.length > 2 ? process.argv[2] : 3000;
 // JSON body parsing using built-in middleware
 app.use(express.json());
 
+// Use the cookie parser middleware for tracking authentication tokens
+app.use(cookieParser());
+
 // Serve up the front-end static content hosting
 app.use(express.static('public'));
+
+// Trust headers that are forwarded from the proxy so we can determine IP addresses
+app.set('trust proxy', true);
 
 app.use(fileUpload({
   // Configure file uploads with maximum file size 5mb
@@ -31,24 +40,27 @@ app.use(`/api`, apiRouter);
 
 // CreateAuth a new user
 apiRouter.post('/auth/create', async (req, res) => {
-  const user = users[req.body.email];
-  if (user) {
+  if (await DB.getUser(req.body.email)) {
     res.status(409).send({ msg: 'Existing user' });
   } else {
-    const user = { email: req.body.email, password: req.body.password, token: uuid.v4() };
-    users[user.email] = user;
+    const user = await DB.createUser(req.body.email, req.body.password);
 
-    res.send({ token: user.token });
+    // Set the cookie
+    setAuthCookie(res, user.token);
+
+    res.send({
+      id: user._id,
+    });
   }
 });
 
 // GetAuth login an existing user
 apiRouter.post('/auth/login', async (req, res) => {
-  const user = users[req.body.email];
+  const user = await DB.getUser(req.body.email);
   if (user) {
-    if (req.body.password === user.password) {
-      user.token = uuid.v4();
-      res.send({ token: user.token });
+    if (await bcrypt.compare(req.body.password, user.password)) {
+      setAuthCookie(res, user.token);
+      res.send({ id: user._id });
       return;
     }
   }
@@ -57,24 +69,36 @@ apiRouter.post('/auth/login', async (req, res) => {
 
 // DeleteAuth logout a user
 apiRouter.delete('/auth/logout', (req, res) => {
-  const user = Object.values(users).find((u) => u.token === req.body.token);
-  if (user) {
-    delete user.token;
-  }
+  res.clearCookie(authCookieName);
   res.status(204).end();
 });
 
-apiRouter.get('/profiles/load/:username',(req, res) => {
+
+// secureApiRouter verifies credentials for endpoints
+const secureApiRouter = express.Router();
+apiRouter.use(secureApiRouter);
+
+secureApiRouter.use(async (req, res, next) => {
+  const authToken = req.cookies[authCookieName];
+  const user = await DB.getUserByToken(authToken);
+  if (user) {
+    next();
+  } else {
+    res.status(401).send({ msg: 'Unauthorized' });
+  }
+});
+
+secureApiRouter.get('/profiles/load/:username',(req, res) => {
   let returnData={data: profileData[req.params.username]};
   res.send(returnData);
 });
 
-apiRouter.post('/profiles/set/:username', (req, res) => {
+secureApiRouter.post('/profiles/set/:username', (req, res) => {
   profileData[req.params.username]=req.body.profiles;
   res.send(profileData);
 });
 
-apiRouter.post('/profiles/uploadPfp/:username', function(req, res) {
+secureApiRouter.post('/profiles/uploadPfp/:username', function(req, res) {
   let uploadPath;
 
   if (!req.files || Object.keys(req.files).length === 0) {
@@ -99,6 +123,15 @@ apiRouter.post('/profiles/uploadPfp/:username', function(req, res) {
 app.use((_req, res) => {
   res.sendFile('index.html', { root: 'public' });
 });
+
+// setAuthCookie in the HTTP response
+function setAuthCookie(res, authToken) {
+  res.cookie(authCookieName, authToken, {
+    secure: true,
+    httpOnly: true,
+    sameSite: 'strict',
+  });
+}
 
 app.listen(port, () => {
   console.log(`Listening on port ${port}`);
