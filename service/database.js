@@ -46,7 +46,7 @@ async function modifyProfile(profile, owner) {
     const query={owner:owner};
     const updateDocument = {
       $set: {
-         profiles: profile,
+         data: profile,
       },
    };
     profileCollection.updateOne(query,updateDocument);
