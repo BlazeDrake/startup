@@ -40,14 +40,27 @@ async function createUser(email, password) {
   return user;
 }
 
-async function addProfile(profile) {
-  return profileCollection.insertOne(profile);
+async function modifyProfile(profile, owner) {
+  let existingProfile = await getProfile(owner);
+  if(existingProfile.length>0){
+    const query={owner:owner};
+    const updateDocument = {
+      $set: {
+         profiles: profile,
+      },
+   };
+    profileCollection.updateOne(query,updateDocument);
+  }
+  else{
+    //Username doesn't exist yet, add a profile spot for them
+    return profileCollection.insertOne({data:profile,owner:owner});
+  }
 }
 
 function getProfile(username) {
-  const query = { username: username };
+  const query = { owner: username };
   const options = {
-    limit: 1,
+    maxlimit: 1
   };
   const cursor = profileCollection.find(query, options);
   return cursor.toArray();
@@ -57,6 +70,6 @@ module.exports = {
   getUser,
   getUserByToken,
   createUser,
-  addProfile,
+  modifyProfile,
   getProfile,
 };

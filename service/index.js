@@ -88,14 +88,14 @@ secureApiRouter.use(async (req, res, next) => {
   }
 });
 
-secureApiRouter.get('/profiles/load/:username',(req, res) => {
-  let returnData={data: profileData[req.params.username]};
-  res.send(returnData);
+secureApiRouter.get('/profiles/load/:username',async (req, res) => {
+  const returnData= await DB.getProfile(req.params.username);
+  res.send(returnData[0]);
 });
 
 secureApiRouter.post('/profiles/set/:username', (req, res) => {
-  profileData[req.params.username]=req.body.profiles;
-  res.send(profileData);
+  DB.modifyProfile(req.body.profiles,req.params.username);
+  res.send(req.body.profiles);
 });
 
 secureApiRouter.post('/profiles/uploadPfp/:username', function(req, res) {
