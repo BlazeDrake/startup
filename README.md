@@ -70,10 +70,20 @@ For this deliverable I used JavaScript and React so that the application complet
  Hooks - I use useState to store information about the current profiles created, the services within them, as well as storing what number should be used for the auto generated name & id of the next created profile.
 
  ## Service Deliverable
- For this deliverable I added backend endpoints that receives profile data, including username, used service list, and profile picture. I also used third party endpoints to generate profile pictures. 
+ For this deliverable I added backend endpoints that receives profile data, including username, used service list, and profile picture. I also used third party endpoints to generate profile pictures. **I had to push the login deliverable over this in order to submit it, but all features from this deliverable still work**
 
  * Node.js/Express HTTP service - done!
  * Static middleware for frontend - done!
  * Calls to third party endpoints - Fetch api used for MET museum of art call to create placeholder profile pictures (the generate from art option).
  * Backend service endpoints - Placeholders for login that stores the current user on the server. Endpoints for profile storage. There is also an endpoint for uploading custom profile pictures, but it seems that the file structure doesn't truly allow this to work yet.
  * Frontend calls service endpoints - I did this using the fetch function.
+
+ ## Login Deliverable
+For this deliverable I associate the profiles with the logged in user. I stored the profiles in the database.
+ 
+ * MongoDB Atlas database created - done!
+ * Stores data in MongoDB - done!
+ * User registration - Creates a new account in the database.
+ * existing user - Stores the profiles under the same user if the user already exists.
+ * Use MongoDB to store credentials - Stores both user and their profiles.
+ * Restricts functionality - You cannot create, view, or modify profiles until you are logged in. 
