@@ -46,6 +46,7 @@ const UpdateEvent = {
   
     broadcastEvent(from, type, value) {
       const event = new EventMessage(from, type, value);
+      this.socket.send(JSON.stringify(event));
       //this.receiveEvent(event);
     }
   
