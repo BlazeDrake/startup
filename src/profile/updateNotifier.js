@@ -19,7 +19,7 @@ const UpdateEvent = {
     constructor() {
 
       //Set up the websocket
-      let port =3000;// window.location.port;
+      let port =window.location.port;
       const protocol = window.location.protocol === 'http:' ? 'ws' : 'wss';
       this.socket = new WebSocket(`${protocol}://${window.location.hostname}:${port}/ws`);
       this.socket.onopen = (event) => {
