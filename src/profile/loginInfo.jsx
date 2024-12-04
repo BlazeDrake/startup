@@ -19,7 +19,7 @@ export default function LoginInfo(props) {
   function handleGameEvent(event) {
     let newEvents = [event, ...events];
     if (newEvents.length > 10) {
-      newEvents = newEvents.slice(1, 10);
+      newEvents = newEvents.slice(0, 9);
     }
     setEvent(newEvents);
   }
