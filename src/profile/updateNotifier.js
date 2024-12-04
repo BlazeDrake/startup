@@ -35,13 +35,14 @@ const UpdateEvent = {
         } catch {}
       };
 
-      // Simulate chat messages that will eventually come over WebSocket
+      /*
+      // Debug option where it randomly sends messages over websocket
       setInterval(() => {
         const id = Math.floor(Math.random() * 3000);
         const date = new Date().toLocaleDateString();
         const userName = 'User'+id;
         this.broadcastEvent(userName, Math.random()>0.5?UpdateEvent.Add:UpdateEvent.Remove, { name: userName});
-      }, 5000);
+      }, 5000);*/
     }
   
     broadcastEvent(from, type, value) {
