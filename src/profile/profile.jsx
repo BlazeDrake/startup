@@ -153,9 +153,6 @@ export function ProfileBox({userName, profile, onDelete, onServicesUpdated, used
           <button className="btn btn-secondary" onClick={generate8bit}>
             Generate 8-bit image
           </button>
-          <button className="btn btn-success" onClick={()=>{setShowUpload(true)}}>
-            Upload
-          </button>
           <button className="btn btn-primary" onClick={()=>{setShowPfp(true)}}>
             View current image
           </button>
@@ -182,20 +179,6 @@ export function ProfileBox({userName, profile, onDelete, onServicesUpdated, used
           </p>
         </form>
     </section>
-    <Modal show={showUpload} centered>
-      <Modal.Body>
-
-      <form
-        id={'uploadForm'+profile.num}
-        encType="multipart/form-data">
-          <input type="file" accept="image/*" name="file"/>
-          <Button onClick={uploadPfp} className="btn btn-primary">Upload</Button>
-      </form>    
-      </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={()=>{setShowUpload(false)}}>Close</Button>
-      </Modal.Footer>
-    </Modal>
     <Modal show={showPfp} centered>
       <Modal.Body>
         <Row>
