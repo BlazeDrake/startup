@@ -5,6 +5,7 @@ const fileUpload = require('express-fileupload');
 const uuid = require('uuid');
 const app = express();
 const DB = require('./database.js');
+const multer=require('multer');
 const { peerProxy } = require('./peerProxy.js');
 
 const authCookieName = 'token';
@@ -24,10 +25,6 @@ app.use(express.static('public'));
 // Trust headers that are forwarded from the proxy so we can determine IP addresses
 app.set('trust proxy', true);
 
-app.use(fileUpload({
-  // Configure file uploads with maximum file size 5mb
-  limits: { fileSize: 5 * 1024 *  1024 }
-}));
 
 // Router for service endpoints
 var apiRouter = express.Router();
@@ -93,25 +90,41 @@ secureApiRouter.post('/profiles/set/:username', (req, res) => {
   res.send(req.body.profiles);
 });
 
-secureApiRouter.post('/profiles/uploadPfp/:username', function(req, res) {
-  let uploadPath;
 
-  if (!req.files || Object.keys(req.files).length === 0) {
-    return res.status(400).send({msg:'No files were uploaded.'});
+const upload = multer({
+  storage: multer.diskStorage({
+    destination: 'profilePics/',
+    filename: (req, file, cb) => {
+      const filetype = file.originalname.split('.').pop();
+      const id = Math.round(Math.random() * 1e9);
+      const filename = `${id}.${filetype}`;
+      cb(null, filename);
+    },
+  }),
+  limits: { fileSize: 5 * 1024 *  1024 },
+});
+
+secureApiRouter.post('/profiles/uploadPfp/:username', upload.single('file'), (req, res) => {
+  if (req.file) {
+    res.send({
+      message: 'Uploaded succeeded',
+      file: req.file.filename,
+    });
+  } else {
+    res.status(400).send({ message: 'Upload failed' });
   }
+});
 
-  // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-  let sampleFile = req.files.newPfp;
-  let storedPath='profilePics\\' + req.params.username +"_"+ sampleFile.name
-  uploadPath = __dirname +'\\'+storedPath;
+app.get('/pfp/:filename', (req, res) => {
+  res.sendFile(__dirname + `/profilePics/${req.params.filename}`);
+});
 
-  // Use the mv() method to place the file somewhere on your server.
-  sampleFile.mv(uploadPath, function(err) {
-    if (err)
-      return res.status(500).send(err);
-
-    res.send({path:'service/'+storedPath.replace('\\','/')});
-  });
+app.use((err, req, res, next) => {
+  if (err instanceof multer.MulterError) {
+    res.status(413).send({ message: err.message });
+  } else {
+    res.status(500).send({ message: err.message });
+  }
 });
 
 // Return the application's default page if the path is unknown

@@ -1,5 +1,5 @@
 node_modules
-service/profilePics
+/profilePics
 
 # production
 /build

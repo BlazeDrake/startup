@@ -124,8 +124,8 @@ export function ProfileBox({userName, profile, onDelete, onServicesUpdated, used
       })
       .then(res => res.json()) // Read server response as text
       .then(data => {
-        if(data.path){
-          profile.pfpLink='/'+data.path;
+        if(data.file){
+          profile.pfpLink=`/pfp/${data.file}`;
           refresh();
         }
     });
@@ -188,7 +188,7 @@ export function ProfileBox({userName, profile, onDelete, onServicesUpdated, used
       <form
         id={'uploadForm'+profile.num}
         encType="multipart/form-data">
-          <input type="file" accept="image/*" name="newPfp"/>
+          <input type="file" accept="image/*" name="file"/>
           <Button onClick={uploadPfp} className="btn btn-primary">Upload</Button>
       </form>    
       </Modal.Body>
