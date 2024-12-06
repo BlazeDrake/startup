@@ -87,3 +87,11 @@ For this deliverable I associate the profiles with the logged in user. I stored 
  * existing user - Stores the profiles under the same user if the user already exists.
  * Use MongoDB to store credentials - Stores both user and their profiles.
  * Restricts functionality - You cannot create, view, or modify profiles until you are logged in. 
+
+ ## Websocket Deliverable
+ For this deliverable, I added websocket functionality to display when profiles are updated.
+
+ * **Backend listens for WebSocket connection** - done!
+ * **Frontend makes WebSocket connection** - done!
+ * **Data sent over WebSocket connection** - done!
+ * **WebSocket data displayed** - displays a notification in the top left corner whenever another user adds or removes a profile.
