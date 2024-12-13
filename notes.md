@@ -1844,3 +1844,20 @@ Improve performance
 		
 
 
+### Other
+* html codes:
+	* 300=redirect,
+ 	* 400=client error,
+  	* 500=server error
+* Ports:
+	* http=80,
+ 	* ssh=22,
+  	* https=443
+* Acronyms:
+	* jsx=javascript xml,
+ 	* js=javscript,
+  	* aws=amazon ewb service,
+  	* npm=node package manage,
+  	* nvm=node versionmanager
+  * 
+	
